@@ -1,0 +1,7 @@
+.btn.btn-primary  {
+	background-color:#00a651;
+}
+.my-pagination * .ngx-pagination .current {
+	background: #00a651;
+	font-size:15px;
+  }

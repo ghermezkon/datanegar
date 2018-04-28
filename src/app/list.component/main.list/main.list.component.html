@@ -1,0 +1,57 @@
+<section class="page">
+    <div class="container">
+        <div [class]="this.detail">
+            <h2 align="center" class="bottom-title" [id]="this.detail">{{this.header}}</h2>
+        </div>
+        <div class="clearfix" style="padding-bottom:30px;"></div>
+        <div class="row">
+            <ng-container *ngFor="let i of articleList">
+                <div class="col-md-3 col-sm-5">
+                    <div class="card-container">
+                        <div class="card">
+                            <div class="front">
+                                <div class="cover">
+                                    <img src="./assets/uploads/{{i.articleHeader.articleLogo.fileHeader.fileInfo.name}}" 
+                                        title="{{i.articleHeader.articleLogo.fileHeader.fileTitle}}"
+                                        alt="{{i.articleHeader.articleLogo.fileHeader.fileAlt}}" />
+                                </div>
+                                <div class="content">
+                                    <div class="main">
+                                        <h3 class="name" style="padding-top:10px;">{{i.articleHeader.articleTitle}}</h3>
+                                    </div>
+                                    <div class="footer">
+                                        <div>
+                                            <p>
+                                                تعداد بازدید: 114
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="back">
+                                <div class="header">
+                                    <h5 class="motto">{{i.articleHeader.articleShoar}}</h5>
+                                </div>
+                                <div class="content">
+                                    <div class="main">
+                                        <p class="text-justify">
+                                            {{i.articleHeader.articleSummary}}
+                                        </p>
+                                        <div class="stats-container">
+                                            <div class="stats">
+                                                <h4></h4>
+                                                <p>
+                                                    <button type="button" class="btn btn-success btn-xs" [id]="this.detail" [routerLink]="['/list', i.articleHeader.articleGroup.link,i.articleHeader.articleRoute]">ادامه مطلب</button>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</section>

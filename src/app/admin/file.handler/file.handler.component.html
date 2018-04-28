@@ -1,0 +1,90 @@
+<div class="col-md-12">
+    <form [formGroup]="fileForm" templateColor="green" style="width:100%;" novalidate method="post" enctype="multipart/form-data">
+        <div formGroupName="fileHeader">
+            <mdl-textfield type="text" formControlName="fileName" label="نام فایل" [ngClass]="{'disable-text': this.flagUpdate}" class="left input-size-20"
+                floating-label autocomplete="off" error-msg="{{formErrors.fileName}}"></mdl-textfield>
+            <mdl-checkbox [mdl-ripple]="true" formControlName="flagBase64" style="padding-right:200px;"></mdl-checkbox>
+            <span>
+                ذخیره بصورت base64
+            </span>
+            <br/>
+            <mdl-textfield type="text" formControlName="fileTitle" label="عنوان فایل" class="right input-size-50" floating-label autocomplete="off"
+                error-msg="{{formErrors.fileTitle}}"></mdl-textfield><br/>
+            <tag-input formControlName="fileAlt" secondaryPlaceholder="متن جایگزین تصویر" [maxItems]="10" editable="true" placeholder="متن جایگزین تصویر"
+                modelAsStrings="true" class="right input-size-100"></tag-input>
+        </div>
+    </form>
+</div>
+<div class="col-md-12" style="padding-top:20px;" *ngIf="!flagUpdate">
+    <form>
+        <div class="form-group">
+            <label for="single">انتخاب فایل</label>
+            <input type="file" id="fileImport" accept="image/*" (change)="readFile($event);" class="form-control" name="single" ng2FileSelect
+                [uploader]="uploader" />
+            <canvas id="canvas" style="width: 1px;height: 1px;">
+                Sorry. Your browser does not support HTML5 canvas element.
+            </canvas>
+        </div>
+    </form>
+</div>
+
+<div class="col-md-12" *ngIf="!flagUpdate">
+    <table class="table">
+        <thead>
+            <tr>
+                <th width="50%">نام فایل</th>
+                <th>حجم فایل</th>
+                <th>درصد</th>
+                <th>وضعیت</th>
+                <th>عملیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of uploader.queue">
+                <td><strong>{{ item.file.name }}</strong></td>
+                <td nowrap>{{ item.file.size/1024/1024 | number:'.2' }} MB</td>
+                <td>
+                    <div class="progress" style="margin-bottom: 0;">
+                        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                    </div>
+                </td>
+                <td class="text-center">
+                    <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                    <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                    <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                </td>
+                <td nowrap>
+                    <button type="button" class="btn btn-success btn-xs" (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                            <span class="glyphicon glyphicon-upload"></span> آپلود
+                        </button>
+                    <button type="button" class="btn btn-warning btn-xs" (click)="item.cancel()" [disabled]="!item.isUploading">
+                            <span class="glyphicon glyphicon-ban-circle"></span> لغو
+                        </button>
+                    <button type="button" class="btn btn-danger btn-xs" (click)="item.remove()">
+                            <span class="glyphicon glyphicon-trash"></span> Remove
+                        </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="col-md-12" style="padding-top:10px;position:absolute;bottom:0;">
+    <div class="col-md-6 searchBox-border">
+        <form templateColor="blue">
+            <mdl-textfield name="searchText" type="text" icon="search" placeholder="نام فایل" (keypress)="find($event.keyCode)" [(ngModel)]="findFileName"></mdl-textfield>
+        </form>
+    </div>
+    <div class="button-command col-md-6">
+        <button mdl-button mdl-button-type="raised" class="input-size-46" [disabled]="!fileForm.valid" *ngIf="!flagUpdate" templateColor="purple"
+            (click)="save(fileForm.value)">
+            ذخیره اطلاعات
+        </button>
+        <button mdl-button mdl-button-type="raised" class="input-size-46" [disabled]="!fileForm.valid" *ngIf="flagUpdate" templateColor="blue"
+            (click)="update(fileForm.value)">
+            ویرایش اطلاعات
+        </button>
+        <button mdl-button mdl-button-type="mini-fab" templateColor="grey" (click)="clearForm()" pTooltip="Clear">
+            <i class="fa fa-info" aria-hidden="true"></i>
+        </button>
+    </div>
+    <div>

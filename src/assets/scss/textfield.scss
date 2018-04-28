@@ -1,0 +1,161 @@
+mdl-textfield{
+	&.center>div>input{
+		text-align:center;
+	}
+	&.left>div>input{
+		text-align:left;
+		direction:ltr;
+	}
+}
+mdl-textfield[icon="search"]{
+	padding-top:0px;
+	padding-bottom:0px;
+}
+.mdl-textfield {
+	position: relative;
+	display: inline-block;
+	box-sizing: border-box;
+	max-width: 100%;
+	margin: 0;
+	padding: 20px 0; 
+
+	.mdl-button{
+		position: relative;
+		//bottom: 20px; 
+	}
+	&--full-width{
+		width: 100%; 
+	}
+	&--expandable{
+		min-width: 32px;
+		width: auto;
+		min-height: 32px;
+	}
+	&__input{
+		border: none;
+		border-bottom: 1px solid rgba(0,0,0, 0.12);
+		display: block;
+		margin: 0;
+		padding: 4px 0;
+		width: 100%;
+		background: none;
+		text-align: right;
+		color: inherit; 
+	}
+	&.is-focused &__input{
+		outline: none;
+	}
+    &.is-focused &__label:after {
+		left: 0;
+		visibility: visible;
+		width: 100%; 
+	}
+	&.is-focused &__expandable-holder,
+	&.is-dirty &__expandable-holder{
+		max-width: 600px; 
+	}
+	&.is-invalid &__input{
+		border-color: rgb(222, 50, 38);
+		box-shadow: none; 
+	}
+	&.is-invalid &__label:after {
+		background-color: rgb(222, 50, 38); 
+	}
+	&.is-invalid &__error {
+		visibility: visible; 
+	}
+    &.is-dirty &__label {
+		visibility: hidden; 
+	}
+	&__label {
+		bottom: 0;
+		color: rgba(0,0,0, 0.26);
+		left: 0;
+		right: 0;
+		pointer-events: none;
+		position: absolute;
+		display: block;
+		top: 24px;
+		width: 100%;
+		overflow: hidden;
+		white-space: nowrap;
+		text-align: right; 
+		
+		&:after {
+			bottom: 15px;
+			content: '';
+			height: 2px;
+			left: 45%;
+			position: absolute;
+			-webkit-transition-duration: 0.2s;
+					transition-duration: 0.2s;
+			-webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+					transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+			visibility: hidden;
+			width: 10px; 
+		}
+	}
+	&--floating-label &__label{
+		-webkit-transition-duration: 0.2s;
+				transition-duration: 0.2s;
+		-webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+				transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	}
+	&--floating-label.is-focused &__label,
+	&--floating-label.is-dirty &__label,{
+  		font-size: 12px;
+  		top: 4px;
+  		visibility: visible; 
+  	}
+	&--floating-label.is-focused &__expandable-holder &__label,
+	&--floating-label.is-dirty &__expandable-holder &__label {
+		top: -16px; 
+	}
+	&--floating-label.is-invalid &__label {
+		color: rgb(222, 50, 38);
+	}
+	&__error {
+		color: rgb(222, 50, 38);
+		position: absolute;
+		font-size: 10px;
+		margin-top: 3px;
+		//visibility: hidden;
+		display: block; 
+		direction:rtl;
+		font-weight: bold;
+	}
+	&__expandable-holder {
+		display: inline-block;
+		position: relative;
+		margin-left: 32px;
+		-webkit-transition-duration: 0.2s;
+				transition-duration: 0.2s;
+		-webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+				transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+		display: inline-block;
+		max-width: 0.1px; 
+		//margin: 0;
+		padding: 4px 0;
+	}
+	&__expandable-holder &__label:after {
+		bottom: 0; 
+	}
+	&textarea{
+		&__label{
+  			display: block;
+		}
+	}
+	fieldset[disabled] & &__input,
+	&.is-disabled &__input{
+		background-color: transparent;
+		border-bottom: 1px dotted rgba(0,0,0, 0.12);
+		color: rgba(0,0,0, 0.26); 
+	}
+	fieldset[disabled] & &__input,
+	&.is-disabled.is-disabled &__label{
+    	color: rgba(0,0,0, 0.26); 
+	}
+}
+input[ng-reflect-is-disabled="true"]{
+	color:rgba(158,158,158, 0.40);
+}

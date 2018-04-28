@@ -1,0 +1,411 @@
+$themes:(
+    purple:#9c27b0, indigo:#3949ab   , blue:#0074D9,aqua:#00bcd4,
+    green:#4caf50 , teal:#009688     , lime:#9e9d24,orange:#ff9800,
+    pink:#e91e63  , lightpink:#FF4081, red:#f44336 ,maroon:#850f4b,
+    brown:#795548 , lightblue:#00a8e0, grey:#667c99) !default;
+//----------- Use in User Component-----------------------------------------------
+$menuImage:(
+    fruits   : 'fruits.jpg' , vegetables: 'vegetables.jpg', oils     : 'oils.jpg',
+    cereals  : 'cereals.jpg' , herbs     : 'herbs.jpg', beverages: 'beverages.jpg',
+    minerals : 'minerals.jpg' , seeds     : 'seeds.jpg') !default;
+$menuColor:(
+    fruits   : #3aabe2 , vegetables: #239957, oils: #556B2F, 
+    cereals  : #8B8386, herbs: #388E8E, beverages: #E49657) !default;    
+$aligns:(center:center, right:right,left:left) !default;
+//-------------------------------------------------------------------------------
+
+$mdb-shadow-key-umbra-opacity: 0.2 !default;
+$mdb-shadow-key-penumbra-opacity: 0.14 !default;
+$mdb-shadow-ambient-shadow-opacity: 0.12 !default;
+@function generateRGBA($color, $intense){
+    @return rgba(red($color)+14, green($color)+3, blue($color)+6, $intense);
+}
+@mixin shadow-big(){
+    box-shadow: 0 10px 30px -12px rgba(0, 0, 0, $mdb-shadow-key-penumbra-opacity * 3),
+    0  4px 25px 0px rgba(0, 0, 0, $mdb-shadow-ambient-shadow-opacity),
+    0  8px 10px -5px rgba(0, 0, 0, $mdb-shadow-key-umbra-opacity);
+}
+@mixin shadow-normal-color($color){
+    box-shadow: 0 2px 2px 0px rgba(0, 0, 0, $mdb-shadow-key-penumbra-opacity),
+    0  3px 1px -2px rgba(0, 0, 0, $mdb-shadow-key-umbra-opacity),
+    0  1px 5px 0px rgba($color, $mdb-shadow-ambient-shadow-opacity);
+}
+@mixin shadow-big-color($color){
+    box-shadow: 0 12px 20px -10px rgba($color, $mdb-shadow-key-penumbra-opacity * 2),
+    0  4px 20px 0px rgba(0,0,0, $mdb-shadow-ambient-shadow-opacity),
+    0  7px 8px -5px rgba($color, $mdb-shadow-key-umbra-opacity);
+}
+@mixin shadow-24dp() {
+  box-shadow: 0  9px 46px  8px rgba(0, 0, 0, $mdb-shadow-key-penumbra-opacity),
+              0 11px 15px -7px rgba(0, 0, 0, $mdb-shadow-ambient-shadow-opacity),
+              0 24px 38px  3px rgba(0, 0, 0, $mdb-shadow-key-umbra-opacity);
+}
+@mixin font($size, $font-name:"regular"){
+	font-family: iransharp_ + $font-name !important;
+	font-size: $size;
+}
+
+@mixin theme($theme, $color) {
+    div[templateColor=#{$theme}] * 
+        .mdl-textfield--floating-label.is-focused .mdl-textfield__label, 
+        .mdl-textfield--floating-label.is-dirty .mdl-textfield__label ,
+    {
+        color:$color !important;
+    }
+    div[templateColor=#{$theme}] * .mdl-textfield__label:after {
+	    background-color: $color;
+    }   
+    div[templateColor=#{$theme}] * .mdl-select .mdl-list__item:hover {
+        color:#fff;
+	    background-color: $color;
+    }
+    div[templateColor=#{$theme}] * .mdl-select .mdl-list__item.is-active {
+        color:#fff;
+	    background-color: lighten($color, 5);
+    } 
+    .my-panel-header[data-background-color=#{$theme}]
+    {
+        background: linear-gradient(60deg, lighten($color, 2%), $color);
+        box-shadow: 0 12px 20px -10px generateRGBA($color,0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px generateRGBA($color,0.2);
+    }
+    button[templateColor=#{$theme}] {
+        background: $color;
+        color: rgb(255,255,255); 
+
+        &:hover:not(:disabled){
+            background: darken($color, 3%);
+        }
+        &:active{
+            background: darken($color, 3%);
+        }
+        &:focus:not(:active){
+            background: darken($color, 3%);
+        }
+    }
+    div[templateColor=#{$theme}] * .ng2-tag-input--focused{
+        border-bottom: 2px solid $color !important;
+    }
+    div[templateColor=#{$theme}] * tag.ng-trigger{
+        background-color: $color;
+        color:#FFF;
+    }
+}
+//----------mixin use in Main Component----------------------------
+@mixin menu-image($menu, $image){
+    div[id=#{$menu}]{
+        background:url('../images/icon/'+$image); 
+        background-repeat: no-repat;
+        width:100%;
+        height: 100%;
+    }
+}
+//----------mixin use in List Component----------------------------
+@mixin menu-color($menu, $color){
+    div[class=#{$menu}]{        
+        width: 100%; height: 20px; 
+        border-bottom: 3px solid $color; 
+        text-align: center;   
+    }
+}
+@mixin h2-color($menu, $color){
+    h2[id=#{$menu}]{        
+        background: $color;   
+        box-shadow: 0px 2px 10px $color;
+    }
+    button[id=#{$menu}]{
+        background: $color;   
+        color: #fff;
+        border-color: darken($color, 2%);
+        &:focus, &.focus{
+            background: $color;   
+            color: #fff;
+            border-color: darken($color, 10%);            
+        }
+        &:hover{
+            background: darken($color, 10%);   
+            color: #fff;
+            border-color: darken($color, 3%);                        
+        }
+    } 
+}
+/*--------------------------------------------------------------*/
+@for $i from 1 through 50{
+    .margin-top-#{$i} {
+        margin-top : $i * 1%;
+    }
+}
+@each $theme, $color in $themes {
+  @include theme($theme, $color);
+}
+@each $menu, $index in $menuImage {
+  @include menu-image($menu, $index);
+}
+@each $menu, $index in $menuColor {
+  @include menu-color($menu, $index);
+  @include h2-color($menu, $index);
+}
+
+@for $i from 10 through 100{
+    .input-size-#{$i} {
+        width : $i * 1%;
+        position: relative;
+    }
+}
+@each $i in $aligns{
+  .text-align-#{nth($i, 1)}{
+    text-align: #{nth($i, 2)} !important;
+  }
+}
+/*--------------Style Use in User Component-------------------------------------*/
+h2.bottom-title {
+    padding: 4px 10px;
+    color: #fff !important;
+    font-size: 21px !important;
+    font-weight: 500;    
+    text-align: center;
+    width: 300px;
+    position: relative;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+.padding-20 { padding:20px !important; 	}
+.my-row {
+  margin-right: -15px;
+  margin-left: -15px;
+  display:flex;
+  @extend .padding-20;
+}
+#middle {
+	margin-left: 0;
+	margin-top :0;
+}
+/*--------------Style Use in Admin Component-------------------------------------*/
+.disable-text{
+    pointer-events:none;
+    color:#AAA;
+}
+.vertical-line {
+  height: inherit;
+  border: 0;
+  border-left: 1px dotted #cccccc;
+  display: inline-block;
+  vertical-align: bottom;
+}
+.horizontal-line{
+    width:100%;
+    height: 1px;
+	border: 0;
+	border-top: 1px dotted #cccccc;
+	display: inline-block;
+}
+.button-command{
+	text-align:left;
+    bottom:0;
+    border-top:dotted 1px #cccccc;
+    padding-top:10px;
+}
+
+button {
+	background: none;
+	border: 0; margin: 0; padding: 0;
+	cursor: pointer;
+}
+.mdl-dialog__content{
+	direction:rtl;
+	text-align:center;
+}
+.mdl-dialog__actions{
+	direction:rtl;
+	text-align:center;
+}
+.ui-datatable-thead, tr.ui-widget-content{
+	@include font(12px);
+}
+input.ng2-tag-input__text-input, div.tag__text.inline{
+    @include font(12px);
+}
+.searchBox-border {
+    padding-top:10px;
+    border-top: 1px dotted #cccccc;
+}
+.table-selected-row {
+  background-color:#00a651 !important;
+  color: white;
+}
+//-----------------------Detail Hedaer---------------------------------
+
+//-------------------------------------------------------
+  @mixin z-1() { box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37); }
+  @mixin z-2() { box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3), 0 2px 2px 0 rgba(0, 0, 0, 0.2); }
+  @mixin z-3() { box-shadow: 0 13px 25px 0 rgba(0, 0, 0, 0.3), 0 11px 7px 0 rgba(0, 0, 0, 0.19); }
+  @mixin z-4() { box-shadow: 0 20px 40px 0 rgba(0, 0, 0, 0.3), 0 14px 12px 0 rgba(0, 0, 0, 0.17); }
+  @mixin z-5() { box-shadow: 0 27px 55px 0 rgba(0, 0, 0, 0.3), 0 17px 17px 0 rgba(0, 0, 0, 0.15); }
+
+  $cta-color: #FF1744;
+
+      // basic card block
+      .card1 {
+      margin: 8px;
+      position: relative;
+      border-radius: 2px;
+      overflow:  hidden;
+      background-color: #FCFCFC;
+      //height: 5%;
+      width: 100%;
+      @include z-1();
+
+        // hover status
+        &:hover {
+        cursor: pointer; 
+            > p > a{
+                color: #00a651;
+            }
+            > .card__image{
+              transition: border 0.5s;
+              -webkit-transition: border 0.5s;
+              border-bottom: solid 10px #00a651;;
+            }
+        }
+      }
+
+      // default card image element
+      .card__image {
+          
+      position: absolute;
+      background-size: center;
+      background-position: center bottom;
+      background-repeat: no-repat;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      display: block;
+      opacity: 0;
+      transition: all 200ms cubic-bezier(0.075, 0.820, 0.165, 1.000);
+       
+          // image overlay
+          &:after {
+          content: "";
+          display: block;
+          position: absolute;
+          //background-color: rgba(0,0,0,0.1);
+          top: 0;
+          left: 0;
+          right: 0;
+          transition: all 500ms;
+          bottom: 0; }
+      }
+
+
+      // default card title element
+      .card__title {
+      user-select: none;
+      font-size: 24px;
+      color: #FFF;
+      margin: 0;
+      position: absolute;
+      left: 0;
+      right: 0;
+      padding: 0 16px;
+      font-weight: 400;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+ }
+
+
+      // default card subtitle element
+      .card__subtitle {
+      user-select: none;  
+      font-size: 14px;
+      display: block;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      color: #000;
+      left: 88px;
+      right: 0;
+      top: 45px;
+      position: absolute;
+      padding: 0 16px;
+      opacity: 0;
+}
+
+
+      // default card text element
+      .card__text {
+      user-select: none;
+      text-align: center;
+      @include font(20px);
+      display: block; 
+      left: 0;
+      right: 0;
+      top: 100px;
+      padding: 16px;
+      margin: 0;
+      line-height: 1.6;
+      position: absolute;
+      color: #000;
+      overflow: hidden;
+}
+  // CARDS MODIFIERS 
+  //########################################
+
+
+      // Big modifier
+      .card--big {
+      @include z-1();
+      height: 230px;
+      min-height: 230px;
+      width:270px;
+      min-width:270px;
+          // image element
+          .card__image {
+          border-radius: 1px 1px 0 0;
+          left: 0;
+          right: 0;
+          top: 0;
+          opacity: 1;
+          max-height: 146px; }
+
+          // title element
+          .card__title {
+          top: 115px; }
+
+
+          // text element
+          .card__text {
+          top: 146px; }
+       }
+.title-one{
+    font-size:24px !important;
+}
+.title-two{
+    font-size:20px !important;
+}
+.big-pic{
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+    width:600px;
+    max-width: 100%;
+    height: auto;
+}
+//--------------------------------------------------------
+#toc_container {
+    background: #f9f9f9 none repeat scroll 0 0;
+    border: 1px solid #aaa;
+    display: table;
+    font-size: 95%;
+    margin-bottom: 1em;
+    padding: 20px;
+    width: auto;
+}
+
+.toc_title {
+    font-weight: 700;
+    text-align: center;
+}
+
+#toc_container li, #toc_container ul, #toc_container ul li{
+    list-style: outside none none !important;
+}

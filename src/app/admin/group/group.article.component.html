@@ -1,0 +1,77 @@
+<div class="my-row">
+    <div class="col-md-6 vertical-line" templateColor="green" style="flex:1">
+        <form [formGroup]="groupForm" style="width:100%;" novalidate>
+            <mdl-textfield type="text" formControlName="groupCode" label="شماره گروه" class="center input-size-20" maxlength="4" floating-label
+                [ngClass]="{'disable-text': this.flagUpdate}"
+                autocomplete="off" error-msg="{{formErrors.groupCode}}"></mdl-textfield><br/>
+            <mdl-textfield type="text" formControlName="groupName" label="عنوان گروه" class="right input-size-40" floating-label autocomplete="off"
+                error-msg="{{formErrors.groupName}}"></mdl-textfield><br/>
+            <mdl-textfield type="text" formControlName="counter" label="تعداد مقالات" class="center input-size-20" maxlength="4" floating-label
+                autocomplete="off" error-msg="{{formErrors.counter}}"></mdl-textfield><br/>
+            <mdl-textfield type="text" formControlName="groupId" label="آیکن گروه(نام کلاس)" class="left input-size-30" floating-label
+                autocomplete="off" error-msg="{{formErrors.groupId}}"></mdl-textfield><br/>
+            <mdl-textfield type="text" formControlName="link" label="لینک ارجاع" class="left input-size-30" floating-label autocomplete="off"
+                error-msg="{{formErrors.link}}"></mdl-textfield>
+        </form>
+        <!-- <p-dataTable #table [value]="groupArticleList" selectionMode="single" (onRowSelect)="onRowSelect($event)" [rows]="5" [paginator]="true"
+            dataKey="groupCode">
+            <p-column field="groupCode" header="کد گروه" styleClass="text-align-center input-size-10"></p-column>
+            <p-column field="groupName" header="عنوان گروه" styleClass="text-align-center input-size-30"></p-column>
+        </p-dataTable> -->
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th style="text-align:center;">#</th>
+                        <th style="text-align:center;">کد گروه</th>
+                        <th style="text-align:center;">عنوان گروه</th>
+                        <th style="text-align:center;">تعداد مقالات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let g of groupArticleList | 
+                        paginate: { itemsPerPage: 5, currentPage: p }; let i = index;">
+                        <tr (click)="onRowSelect(g, i)" [class.table-selected-row]="i == selectedRow">
+                            <th scope="row" style="text-align:center;width:5%;">{{i+1}}</th>
+                            <td style="text-align:center;width:20%;">{{g.groupCode}}</td>
+                            <td style="text-align:center;">{{g.groupName}}</td>
+                            <td style="text-align:center;width:25%;">{{g.counter}}</td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+            
+            <div class="col-md-12" style="text-align:center;">
+            <pagination-controls (pageChange)="p = $event" 
+                directionLinks="true" class="my-pagination" autoHide="true" previousLabel="قبلی"
+                nextLabel="بعدی" screenReaderPaginationLabel="Pagination" s
+                creenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+            </pagination-controls>
+            </div>
+        </div>
+        <div class="col-md-12" style="padding-top:10px;">
+            <div class="col-md-6 searchBox-border">
+                <form templateColor="blue">
+                    <mdl-textfield name="searchText" type="text" icon="search" placeholder="کد گروه" (keypress)="find($event.keyCode)" [(ngModel)]="findGroupCode"></mdl-textfield>
+                </form>
+            </div>
+
+            <div class="button-command col-md-6">
+                <button mdl-button mdl-button-type="raised" class="input-size-46" [disabled]="!groupForm.valid" *ngIf="!flagUpdate" templateColor="purple"
+                    (click)="save(groupForm.value)">
+                    ذخیره اطلاعات
+                </button>
+                <button mdl-button mdl-button-type="raised" class="input-size-46" [disabled]="!groupForm.valid" *ngIf="flagUpdate" templateColor="blue"
+                    (click)="update(groupForm.value)">
+                    ویرایش اطلاعات
+                </button>
+                <button mdl-button mdl-button-type="mini-fab" templateColor="grey" (click)="clearForm()" pTooltip="Clear">
+                    <i class="fa fa-info" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6" templateColor="green" style="flex:1;">
+        <file-handler></file-handler>
+    </div>
+</div>

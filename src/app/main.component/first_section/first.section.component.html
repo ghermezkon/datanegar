@@ -1,0 +1,28 @@
+<div class="page">
+  <div class="container" style="padding-top:20px;">
+    <!-- <div class="section category-items job-category-items  text-center">
+				<ul class="category-list">	
+					<ng-container *ngFor="let i of mainMenu">
+						<li class="category-item">
+							<a [routerLink]="['/list', i.link]">
+								<div class="category-icon" [id]="i.groupId"></div>
+								<span class="category-title">{{i.groupName}}</span>
+								<span class="category-quantity">({{i.counter}})</span>
+							</a>
+						</li>
+					</ng-container>
+				</ul>				
+      </div>	 -->
+
+      <ng-container *ngFor="let i of mainMenu">
+        <div class="col-md-3 col-sm-5">
+          <div class="card-container">
+            <div class="card1 card--big">
+              <div class="card__image" [id]="i.groupId" [routerLink]="['/list', i.link]"></div>
+              <p class="card__text"><a [routerLink]="['/list', i.link]"><h4>{{i.groupName}}</h4></a></p>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+  </div>
+  </div>

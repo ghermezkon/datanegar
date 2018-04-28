@@ -1,0 +1,58 @@
+<section class="job-bg page job-details-page">
+    <div class="container">
+        <ng-container *ngFor="let i of articleList">
+            <div class="job-details">
+                <div class="section job-ad-item">
+                    <div class="item-info" >
+                        <div class="col-md-4 col-sm-1 col-xs-1 item-image hidden-xs hidden-sm text-center">
+                            <img src="./assets/uploads/{{i.articleHeader.articleHeaderImg.fileHeader.fileInfo.name}}" title="{{i.articleHeader.articleHeaderImg.fileHeader.fileTitle}}"
+                                alt="{{i.articleHeader.articleHeaderImg.fileHeader.fileAlt}}" />
+                        </div>
+                        <div class="col-md-5 col-sm-12 col-xs-12">
+                            <div class="detail-title">
+                                <h2>{{i.articleHeader.articleTitle}}</h2>
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-sm-12 col-xs-12 ">
+                            <div class="detail-ul">
+                            <ul class="list-inline">
+                                <li>
+                                    <h5>
+                                        <span>
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                            {{i.articleHeader.articleType}}: 
+                                            {{i.articleHeader.articleTranslator}}
+                                        </span>
+                                    </h5>
+                                </li>
+                                <li>
+                                    <h5>
+                                        <span>
+                                            <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                                            تعداد بازدید: 
+                                            {{i.articleHeader.articleCount}}
+                                        </span>
+                                    </h5>
+                                </li>
+                            </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="job-details-info">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="section job-description">
+                                <div class="detail-text" [innerHTML]="i.articleDetail.articleText"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- job-details -->
+        </ng-container>
+    </div>
+    <!-- container -->
+</section>
+<!-- job-details-page -->

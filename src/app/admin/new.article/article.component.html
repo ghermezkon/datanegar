@@ -1,0 +1,112 @@
+<div class="my-row">
+    <div class="col-md-12">
+        <div class="col-md-6 vertical-line" templateColor="green" style="flex:1">
+            <form [formGroup]="articleForm" style="width:100%;">
+                <div formGroupName="articleHeader">
+                    <mdl-textfield type="text" formControlName="articleCode" label="کد مقاله" class="center input-size-20" floating-label autocomplete="off"
+                        [ngClass]="{'disable-text': this.flagUpdate}" error-msg="{{formErrors.articleCode}}"></mdl-textfield>
+                    <mdl-textfield type="text" formControlName="articleRoute" label="روتر مقاله" class="left input-size-20" floating-label autocomplete="off"
+                        error-msg="{{formErrors.articleRoute}}"></mdl-textfield><br/>
+                    <mdl-textfield type="text" formControlName="articleTitle" label="عنوان مقاله" class="right input-size-45" floating-label
+                        autocomplete="off" error-msg="{{formErrors.articleTitle}}"></mdl-textfield>
+                    <mdl-select [autocomplete]="true" formControlName="articleGroup" (inputChange)="autoChangeGroup($event)" label="گروه مقاله">
+                        <mdl-option [value]><em>--- گروه مقاله ---</em></mdl-option>
+                        <mdl-option *ngFor="let group of groupList" [value]="group">{{group.groupName}}</mdl-option>
+                    </mdl-select><br/>
+                    <mdl-textfield type="text" formControlName="articleSummary" label="خلاصه مقاله" class="right input-size-100" floating-label
+                        maxlength="275" (keyup)="checkSummaryCount($event)" autocomplete="off" rows="5" maxrows="10" error-msg={{formErrors.articleSummary}}></mdl-textfield><br/>
+                    <mdl-textfield type="text" formControlName="articleShoar" label="شعار مقاله" class="right input-size-100" floating-label
+                        autocomplete="off" error-msg={{formErrors.articleShoar}}></mdl-textfield><br/>
+                    <mdl-select [autocomplete]="true" formControlName="articleLogo" (inputChange)="autoChangeLogo($event)" label="لوگوی مقاله">
+                        <mdl-option [value]><em>--- لوگوی مقاله ---</em></mdl-option>
+                        <mdl-option *ngFor="let logo of logoList" [value]="logo">{{logo.fileHeader.fileName}}</mdl-option>
+                    </mdl-select><br/>
+                    <mdl-select formControlName="articleType" label="نوع مقاله" class="mdl-textfield__input1">
+                        <mdl-option [value]><em>--- نوع مقاله ---</em></mdl-option>
+                        <mdl-option *ngFor="let types of articleTypeList" [value]="types">{{types}}</mdl-option>
+                    </mdl-select>
+                    <mdl-select formControlName="articleTranslator" label="مترجم/نویسنده">
+                        <mdl-option [value]><em>--- مترجم/نویسنده ---</em></mdl-option>
+                        <mdl-option *ngFor="let trans of transList" [value]="trans">{{trans}}</mdl-option>
+                    </mdl-select><br/>
+                    <tag-input formControlName="articleTags" secondaryPlaceholder="تگ های مقاله" [maxItems]="50" editable="true" placeholder="تگ های مقاله"
+                        class="right input-size-100" modelAsStrings="true"></tag-input>
+                </div>
+            </form>
+            <!-- <div formGroupName="imgSmallGroup" style="padding-top:20px;">
+                    <div class="form-group">
+                        <label for="single">تصویر کوچک</label>
+                        <input type="file" id="imgSmall" accept="image/*" (change)="readFileSmall($event);" class="form-control" name="imgSmall"
+                        />
+                    </div>
+                </div>
+                <br/>
+                <div formGroupName="imgBigGroup">
+                    <div class="form-group">
+                        <label for="single">تصویر بزرگ</label>
+                        <input type="file" id="imgBig" accept="image/*" (change)="readFileBig($event);" class="form-control" name="imgBig" />
+                    </div>
+                </div> -->
+        </div>
+        <div class="col-md-6" templateColor="green" style="flex:1;">
+            <form [formGroup]="articleForm" style="width:100%;">
+                <div formGroupName="articleHeader">
+                    <mdl-select [autocomplete]="true" formControlName="articleHeaderImg" 
+                        (inputChange)="autoChangeImgHeader($event)" label="تصویر کوچک مقاله">
+                        <mdl-option [value]><em>--- تصویر کوچک مقاله ---</em></mdl-option>
+                        <mdl-option *ngFor="let img of imgHeaderList" [value]="img">{{img.fileHeader.fileName}}</mdl-option>
+                    </mdl-select><br/>
+                    <mdl-select [autocomplete]="true" formControlName="articleBigImg" 
+                        (inputChange)="autoChangeImgBig($event)" label="تصویر بزرگ مقاله">
+                        <mdl-option [value]><em>--- تصویر بزرگ مقاله ---</em></mdl-option>
+                        <mdl-option *ngFor="let img of imgBigList" [value]="img">{{img.fileHeader.fileName}}</mdl-option>
+                    </mdl-select>
+                    
+                </div>
+            </form>
+            <!-- <div style="text-align:center;">
+                <canvas id="canvasSmall"></canvas>
+            </div><br/>
+            <div class="searchBox-border"></div>
+            <div style="text-align:center;">
+                <canvas id="canvasBig"></canvas>
+            </div><br/>
+            <div class="searchBox-border"></div> -->
+        </div>
+    </div>
+</div>
+<div class="searchBox-border"></div>
+<div class="my-row">
+    <div class="col-md-12">
+        <!-- <ckeditor [(ngModel)]="ckeditorContent"></ckeditor> -->
+        <div [froalaEditor] [(froalaModel)]="ckeditorContent"></div>
+    </div>
+</div>
+<label>منابع: </label>
+<div class="my-row">
+    <div class="col-md-12">
+        <!-- <ckeditor [(ngModel)]="ckeditorContent"></ckeditor> -->
+        <div [froalaEditor] [(froalaModel)]="refContent"></div>
+    </div>
+</div>
+
+<div class="searchBox-border col-md-6">
+    <form templateColor="blue">
+        <mdl-textfield name="searchText" autocomplete="off" type="text" icon="search" placeholder="کد مقاله" (keypress)="find($event.keyCode)"
+            [(ngModel)]="findArticleCode"></mdl-textfield>
+    </form>
+</div>
+<div class="button-command col-md-6">
+    <button mdl-button mdl-button-type="raised" class="input-size-26" [disabled]="!articleForm.valid" *ngIf="!flagUpdate" templateColor="purple"
+        (click)="save(articleForm.value)">
+        ذخیره اطلاعات
+    </button>
+    <button mdl-button mdl-button-type="raised" class="input-size-26" [disabled]="!articleForm.valid" *ngIf="flagUpdate" templateColor="blue"
+        (click)="update(articleForm.value)">
+        ویرایش اطلاعات
+    </button>
+    <button mdl-button mdl-button-type="mini-fab" templateColor="grey" pTooltip="Clear" (click)=clearForm()>
+        <mdl-icon>clear_all</mdl-icon>
+    </button>
+</div>
+<div class="clearfix"></div>

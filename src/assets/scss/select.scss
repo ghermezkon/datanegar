@@ -1,0 +1,112 @@
+ $palette-grey-200: "238,238,238";
+ $palette-grey-300: "224,224,224";
+ $default-item-active-bg-color: unquote("rgb(#{$palette-grey-300})") !default;
+mdl-select.mdl-textfield__input1 input.mdl-textfield__input{
+  min-width: 260px;
+}
+.mdl-popover{
+    @include shadow-big-color(black);
+    background:#fff;border:none;display:none;margin:0;overflow:visible;padding:0;position:absolute;
+}
+.mdl-popover.is-animating,.mdl-popover.is-visible{display:block;z-index:999}
+.mdl-popover.direction-up{bottom:22px}
+.mdl-select .mdl-list__item .mdl-list__item-secondary-action{
+    position:absolute;width:35px;
+}
+.mdl-select .mdl-list__item .mdl-list__item-primary-content{
+    position:relative;padding-right:30px;
+}
+
+.mdl-select {
+  &--floating-label {
+    @extend .mdl-textfield--floating-label !optional;
+    
+    .mdl-textfield {
+      &.is-dirty {
+        @extend .mdl-textfield--floating-label.is-dirty !optional;
+      }
+    }
+
+    padding: 0;
+
+    .mdl-textfield__label {
+      &:after {
+        @extend .mdl-textfield__label:after !optional;
+      }
+
+      &.is-dirty {
+        &:after {
+          @extend .mdl-textfield__label.is-dirty:after !optional;
+        }
+      }
+    }
+  }
+
+  .mdl-popover.mdl-popover--above {
+    &.direction-up {
+      bottom: 66px;
+    }
+  }
+
+  &__toggle {
+    cursor: pointer;
+    float: left;
+    margin-top: -1.75rem;
+    color: $default-item-active-bg-color;
+  }
+
+  .mdl-textfield {
+    &__input {
+      min-width:300px;
+      box-sizing: border-box;
+      cursor: pointer;
+      overflow: hidden;
+      //padding-right: 1.5rem;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &.is-focused {
+      .mdl-select__toggle {
+        color:#3f51b5;
+      }
+    }
+
+    &.is-invalid {
+      .mdl-select__toggle {
+        color:#d50000;
+      }
+    }
+
+    &.is-disabled {
+      .mdl-select__toggle {
+        color:rgba(0,0,0,.26);
+      }
+    }
+  }
+
+  .mdl-list {
+    max-height: 280px;
+    overflow-y: auto;
+    padding: 0;
+
+    &__item {
+      cursor: pointer;
+      padding:10px;
+      @include font(15px);
+
+      &:hover {
+        background-color: #FFF;
+      }
+
+      &.is-active {
+        color: #FFF;
+        background-color: #FFF;
+      }
+    }
+  }
+}
+
+
+
+
